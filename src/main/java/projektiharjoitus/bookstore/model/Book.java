@@ -18,7 +18,7 @@ public class Book {
     private String title;
     private String author;
     private int publicationYear;
-    private int isbn;
+    private long isbn;
     private double price;
 
 /**pitää luoda tämmöinen parametriton konstruktori se saa jpa json 

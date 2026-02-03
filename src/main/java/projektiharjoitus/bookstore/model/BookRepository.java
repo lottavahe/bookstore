@@ -8,4 +8,5 @@ public interface BookRepository extends CrudRepository<Book, Long> {
     /**Jos halutaan automaatti joka hakee esim nimellä kirjan
      * List<Book> findByTitle (String title);
      */
+    List<Book> findByTitle(String title);
 }
