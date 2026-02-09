@@ -41,7 +41,7 @@ public class BookstoreApplication {
 			for (Book book : repository.findAll()) {
 				log.info(book.toString());
 			}
-			log.info("etsi kaikki ");
+			log.info("etsi teoksen nimellä ");
 			for (Book book : repository.findByTitle("Muumien joulu")) {
 				log.info(book.toString());
 			}

@@ -8,27 +8,31 @@
     <h1>Lisää kirja</h1>
 
     <form th:object="${book}" th:action="@{/save}" method="post">
+
+        <input type="hidden" th:field="*{id}" />
+
+
         <label for="title">Teos</label>
         <input type="text" id="title" th:field="*{title}" />
-        <div style="height: 10px;"></div>
+       
 
         <label for="author">Tekijä</label>
         <input type="text" id="author" th:field="*{author}" />
-        <div style="height: 10px;"></div>
+        
 
         <label for="publicationYear">Julkaisuvuosi</label>
         <input type="number" id="publicationYear" th:field="*{publicationYear}" />
-        <div style="height: 10px;"></div>
+       
 
         <label for="isbn">ISBN</label>
         <input type="number" id="isbn" th:field="*{isbn}" />
-        <div style="height: 10px;"></div>
+      
 
         <label for="price">Hinta</label>
         <input type="number" step="0.01" id="price" th:field="*{price}" />
-        <div style="height: 10px;"></div>
+        
 
-        <input type="submit" value="Save" />
+        <input type="submit" value="Tallenna" />
     </form>
 </body>
 </html>
