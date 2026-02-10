@@ -1,5 +1,7 @@
 package projektiharjoitus.bookstore.web;
 
+import java.util.Locale.Category;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
@@ -9,16 +11,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import projektiharjoitus.bookstore.model.Book;
 import projektiharjoitus.bookstore.model.BookRepository;
+import projektiharjoitus.bookstore.model.CategoryRepository;
+
 import org.springframework.web.bind.annotation.RequestMethod;
 
 
 @Controller
 public class BookController {
     private BookRepository repository;
+    private CategoryRepository crepository;
 
     // constructor injection. Can only be one constructor then.
     public BookController(BookRepository repository) {
         this.repository = repository;
+    }
+    public BookController(CategoryRepository crepository) {
+        this.crepository = crepository;
     }
 
     @RequestMapping(value= "/index")
@@ -38,15 +46,15 @@ public class BookController {
         return "redirect:/index";
     }    
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-    public String deleteBook(@PathVariable Long id) {
+    public String deleteBook(@PathVariable Long id, Model model) {
         repository.deleteById(id);
         return "redirect:/index";  
     }
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
     public String editBook(@PathVariable Long id, Model model) {
-        Book book = repository.findById(id).orElse(null);
-        model.addAttribute("book", book);
-        return "addbook";
+        model.addAttribute("book", repository.findById(id));
+        model.addAttribute("categories",crepository.findAll());
+        return "editbook";
 } 
 
 
