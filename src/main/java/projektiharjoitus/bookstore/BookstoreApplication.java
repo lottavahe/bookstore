@@ -9,6 +9,8 @@ import org.springframework.context.annotation.Bean;
 
 import projektiharjoitus.bookstore.model.Book;
 import projektiharjoitus.bookstore.model.BookRepository;
+import projektiharjoitus.bookstore.model.Category;
+import projektiharjoitus.bookstore.model.CategoryRepository;
 
 @SpringBootApplication
 public class BookstoreApplication {
@@ -27,22 +29,36 @@ public class BookstoreApplication {
 // repository.save(new Book("1984", "George Orwell", 1949, 9780451524935, 9.99));
 // Sovellus on sitten valmis käyttöä varten
 	@Bean
-	public CommandLineRunner bookdemo(BookRepository repository) {
+	public CommandLineRunner bookdemo(BookRepository brepository, CategoryRepository crepository) {
 		return (args) -> {
 			// Your code...add some demo data to database
 			log.info("tallensin kirjoja");
-			repository.save(new Book("Muumilaakson kesä", "Tove Jansson", 1950, 9789513149383L, 14.99));
-			repository.save(new Book("Muumien joulu", "Tove Jansson", 1952, 9789513149390L, 13.99));
-			repository.save(new Book("Pakkanen tulee", "Tove Jansson", 1948, 9789513144763L, 12.99));
-			repository.save(new Book("Muumilaakson talvi", "Tove Jansson", 1957, 9789513166763L, 13.99));
-			repository.save(new Book("Muumilaakson kummitukset", "Tove Jansson", 1954, 9789513150860L, 13.99));
 
-			log.info("etsi kaikki kirjat");
-			for (Book book : repository.findAll()) {
+			Category kategoria1 = new Category("Lasten kirjat");
+			Category kategoria2 = new Category("Tieto kirjat");
+			Category kategoria3 = new Category("Jännittävät kirjat");
+			
+			crepository.save(kategoria1);
+			crepository.save(kategoria2);
+			crepository.save(kategoria3);
+
+			// Lisää kirjat kategorioiden kanssa
+			log.info("Lisätään kirjoja");
+			brepository.save(new Book("Muumilaakson kesä", "Tove Jansson", 1950, 9789513149383L, 14.99, kategoria1));
+			brepository.save(new Book("Muumien joulu", "Tove Jansson", 1952, 9789513149390L, 13.99, kategoria1));
+			brepository.save(new Book("Pakkanen tulee", "Tove Jansson", 1948, 9789513144763L, 12.99, kategoria1));
+			brepository.save(new Book("Muumilaakson talvi", "Tove Jansson", 1957, 9789513166763L, 13.99, kategoria1));
+			brepository.save(new Book("Muumilaakson kummitukset", "Tove Jansson", 1954, 9789513150860L, 13.99, kategoria1));
+			
+			brepository.save(new Book("1984", "George Orwell", 1949, 9780451524935L, 9.99, kategoria3));
+			brepository.save(new Book("Herran Renkaita", "J.R.R. Tolkien", 1954, 9780544003415L, 24.99, kategoria3));
+
+			log.info("Etsi kaikki kirjat");
+			for (Book book : brepository.findAll()) {
 				log.info(book.toString());
 			}
 			log.info("etsi teoksen nimellä ");
-			for (Book book : repository.findByTitle("Muumien joulu")) {
+			for (Book book : brepository.findByTitle("Muumien joulu")) {
 				log.info(book.toString());
 			}
 		};

@@ -26,7 +26,9 @@ public class Book {
     private long isbn;
     private double price;
 
-    @ManyToOne @JoinColumn(name = "categoryId") private Category category;
+    @ManyToOne
+    @JoinColumn(name = "categoryId")
+    private Category category;
 
     /**
      * pitää luoda tämmöinen parametriton konstruktori se saa jpa json
@@ -41,6 +43,7 @@ public class Book {
      */
 
     public Book(String title, String author, int publicationYear, long isbn, double price, Category category) {
+        super();
         this.title = title;
         this.author = author;
         this.publicationYear = publicationYear;
