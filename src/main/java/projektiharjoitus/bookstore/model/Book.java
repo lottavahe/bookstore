@@ -2,6 +2,8 @@ package projektiharjoitus.bookstore.model;
 
 import org.hibernate.mapping.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -25,6 +27,8 @@ public class Book {
     private int publicationYear;
     private long isbn;
     private double price;
+
+    @JsonIgnoreProperties ("books")
 
     @ManyToOne
     @JoinColumn(name = "categoryId")
