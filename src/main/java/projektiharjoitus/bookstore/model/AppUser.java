@@ -19,20 +19,33 @@ public class AppUser {
     private String passwordHash;
 
     @Column(name = "role", nullable = false)
-    private String role;
+	private String role;
+	
+	@Column(name = "email", nullable = false, unique = true)
+	private String email;
     
     public AppUser() {
     }
 
-	public AppUser(String username, String passwordHash, String role) {
+	public AppUser(String username, String passwordHash, String role, String email) {
 		super();
 		this.username = username;
 		this.passwordHash = passwordHash;
 		this.role = role;
+		this.email = email;
+
 	}
 
 	public Long getId() {
 		return id;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public void setId(Long id) {

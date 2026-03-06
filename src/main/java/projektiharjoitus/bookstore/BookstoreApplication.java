@@ -72,11 +72,13 @@ public class BookstoreApplication {
 			//tässä lisään testi käyttäjät
 			urepository.save(new AppUser("user",
                     passwordEncoder.encode("user"),
-                    "USER"));
+					"USER",
+					"user@email.com"));
 
             urepository.save(new AppUser("admin",
                     passwordEncoder.encode("admin"),
-                    "ADMIN"));
+                    "ADMIN",
+					"admin@email.com"));
 		};
 	}		
 }

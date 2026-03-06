@@ -11,9 +11,14 @@
 <header>Kirjakauppa</header>
 
 <div>
-    <div>
-        <a href="/add">+ Lisää kirja</a>
-    </div>
+    <p>Kirjautunut käyttäjä: <span sec:authentication="name"></span></p>
+
+    <form th:action="@{/logout}" method="post" style="display:inline;">
+        <input type="submit" value="Kirjaudu ulos" />
+    </form>
+</div>
+
+<div>
 
     <table>
         <thead>
@@ -50,6 +55,10 @@
             </tr>
         </tbody>
     </table>
+    <div>
+        <br> 
+        <a href="/add">+ Lisää kirja</a>
+    </div>
 </div>
 
 </body>
