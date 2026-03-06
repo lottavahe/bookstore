@@ -3,6 +3,7 @@ package projektiharjoitus.bookstore.web;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
@@ -28,8 +29,13 @@ public class BookController {
         this.bookRepository = repository;
         this.categoryRepository = crepository;
     }
+    // login ennen kuin näytetään kaikki kirjat
+    @RequestMapping(value="/login")
+    public String login() {	
+        return "login";
+    }	
     //näytä kirjat
-    @RequestMapping(value= "/index")
+    @RequestMapping(value= "/booklist")
     public String bookList(Model model) {
         model.addAttribute("books", bookRepository.findAll());
         return "booklist";
@@ -45,13 +51,14 @@ public class BookController {
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public String save(Book book) {
         bookRepository.save(book);
-        return "redirect:/index";
+        return "redirect:/booklist";
     }
     //poista kirja
+    @PreAuthorize("hasAuthority('ADMIN')")
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     public String deleteBook(@PathVariable Long id, Model model) {
         bookRepository.deleteById(id);
-        return "redirect:/index";
+        return "redirect:/booklist";
     }
     ///muokkaa kirjaa
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)

@@ -1,6 +1,5 @@
 package projektiharjoitus.bookstore.model;
 
-import org.hibernate.mapping.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
