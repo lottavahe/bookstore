@@ -6,7 +6,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import projektiharjoitus.bookstore.model.AppUser;
+import projektiharjoitus.bookstore.model.AppUserRepository;
 import projektiharjoitus.bookstore.model.Book;
 import projektiharjoitus.bookstore.model.BookRepository;
 import projektiharjoitus.bookstore.model.Category;
@@ -29,7 +32,12 @@ public class BookstoreApplication {
 // repository.save(new Book("1984", "George Orwell", 1949, 9780451524935, 9.99));
 // Sovellus on sitten valmis käyttöä varten
 	@Bean
-	public CommandLineRunner bookdemo(BookRepository brepository, CategoryRepository crepository) {
+	public CommandLineRunner bookdemo(
+		BookRepository brepository, 
+		CategoryRepository crepository,
+		AppUserRepository urepository,
+        BCryptPasswordEncoder passwordEncoder
+	) {
 		return (args) -> {
 			// Your code...add some demo data to database
 			log.info("tallensin kirjoja");
@@ -61,6 +69,14 @@ public class BookstoreApplication {
 			for (Book book : brepository.findByTitle("Muumien joulu")) {
 				log.info(book.toString());
 			}
+			//tässä lisään testi käyttäjät
+			urepository.save(new AppUser("user",
+                    passwordEncoder.encode("user"),
+                    "USER"));
+
+            urepository.save(new AppUser("admin",
+                    passwordEncoder.encode("admin"),
+                    "ADMIN"));
 		};
 	}		
 }
