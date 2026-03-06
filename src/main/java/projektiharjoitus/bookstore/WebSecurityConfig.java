@@ -26,8 +26,6 @@ public class WebSecurityConfig {
                         .requestMatchers("/api/books**").permitAll()
                         .requestMatchers("/h2-console/**").permitAll() // for h2console
                         .anyRequest().authenticated())
-                // Käyttää HTTP Basic -autentikointia oletusasetuksilla (Postman)
-                .httpBasic(Customizer.withDefaults())
                 .headers(headers -> headers.frameOptions(frameOptions -> frameOptions
                         .disable())) // for h2console
                 .formLogin(formlogin -> formlogin.loginPage("/login")
