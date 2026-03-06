@@ -2,6 +2,7 @@ package projektiharjoitus.bookstore.web;
 
 import java.util.Optional;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -42,11 +43,11 @@ public class BookRestController {
 
     @PutMapping("books/{id}")
     public Book saveEditedBook(@RequestBody Book editedBook, @PathVariable Long id) {
-		editedBook.setId(id);
-		return bookRepository.save(editedBook);
-	}
+        editedBook.setId(id);
+        return bookRepository.save(editedBook);
+    }
+    @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("/books/{id}")
-    // public void deleteBook(@PathVariable Long id) {
     public Iterable<Book> deleteBook(@PathVariable Long id) {
         bookRepository.deleteById(id);
         return bookRepository.findAll();
