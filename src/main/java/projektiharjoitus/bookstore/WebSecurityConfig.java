@@ -22,7 +22,7 @@ public class WebSecurityConfig {
         http.authorizeHttpRequests(
                 authorize -> authorize
                         .requestMatchers("/css/**").permitAll()
-                        .requestMatchers("/api/books**").permitAll()
+                        .requestMatchers("/api/**").permitAll()
                         .requestMatchers("/h2-console/**").permitAll() // for h2console
                         .anyRequest().authenticated())
                 .headers(headers -> headers.frameOptions(frameOptions -> frameOptions
